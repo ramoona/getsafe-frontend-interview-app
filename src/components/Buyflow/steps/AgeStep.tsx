@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
+import { AgeData } from '../types'
 
 interface AgeStepProps {
-  cb: (field: string, value: number) => void
+  value: AgeData['age']
+  onNext(data: AgeData): void
 }
 
-export const AgeStep: React.FC<AgeStepProps> = (props) => {
-  const [age, setAge] = useState(0)
+export const AgeStep: React.FC<AgeStepProps> = ({ value, onNext }) => {
+  const [age, setAge] = useState(value)
+
   return (
     <>
       <div>
@@ -15,10 +18,10 @@ export const AgeStep: React.FC<AgeStepProps> = (props) => {
           onChange={({ target: { value } }) => {
             setAge(Number(value))
           }}
-          value={age}
+          value={age || ''}
         ></input>
       </div>
-      <button onClick={() => props.cb('age', age)}>Next</button>
+      <button onClick={() => onNext({ age })}>Next</button>
     </>
   )
 }

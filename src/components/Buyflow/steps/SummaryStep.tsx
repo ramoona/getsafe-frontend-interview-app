@@ -1,21 +1,20 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { BuyFlowData } from '../types'
 
 interface SummaryStepProps {
-  collectedData: {
-    email: string
-    age: number
-  }
+  data: BuyFlowData
+  onNext(): void
 }
 
-export const SummaryStep: React.FC<SummaryStepProps> = (props) => {
+export const SummaryStep: React.FC<SummaryStepProps> = ({ data, onNext }) => {
   return (
     <>
-      <div>Email: {props.collectedData.email}</div>
-      <div>Age: {props.collectedData.age}</div>
-      <div>
-        <Link to="/purchased=dev_ins">Purchase</Link>
-      </div>
+      {Object.entries(data).map(([key, value]) => (
+        <div key={key}>
+          {key}: {value ?? '-'}
+        </div>
+      ))}
+      <button onClick={() => onNext()}>Purchase</button>
     </>
   )
 }

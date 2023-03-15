@@ -1,40 +1,67 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
+import { PRODUCT_IDS_TO_NAMES, STEPS_BY_PRODUCT_ID } from './consts'
 import { AgeStep } from './steps/AgeStep'
 import { EmailStep } from './steps/EmailStep'
 import { SummaryStep } from './steps/SummaryStep'
+import { BuyFlowData, BuyFlowStep, ProductId, StepId } from './types'
 
 interface BuyflowProps {
   productId: ProductId
+  onSubmit(data: BuyFlowData): void
 }
 
-export enum ProductId {
-  DeveloperInsurance = 'dev_ins',
+interface CurrentBuyFlowStepProps {
+  step: BuyFlowStep
+  data: BuyFlowData
+  onNext(data: BuyFlowData): void
+  onSubmit(data: BuyFlowData): void
 }
 
-const PRODUCT_IDS_TO_NAMES = {
-  [ProductId.DeveloperInsurance]: 'Developer Insurance',
-}
+const CurrentBuyFlowStep: React.FC<CurrentBuyFlowStepProps> = ({
+  step,
+  onNext,
+  data,
+  onSubmit,
+}) => {
+  const { age, email } = data
 
-export const Buyflow: React.FC<BuyflowProps> = (props) => {
-  const [currentStep, setStep] = useState('email')
-  const [collectedData, updateData] = useState({
-    email: '',
-    age: 0,
-  })
-  const getStepCallback = (nextStep: string) => (field: string, value: any) => {
-    updateData({ ...collectedData, [field]: value })
-    setStep(nextStep)
+  const handleSubmit = useCallback(() => onSubmit(data), [data, onSubmit])
+
+  switch (step.stepId) {
+    case StepId.Age:
+      return <AgeStep value={age} onNext={onNext} />
+    case StepId.Email:
+      return <EmailStep value={email} onNext={onNext} />
+    case StepId.Summary:
+      return <SummaryStep data={data} onNext={handleSubmit} />
+    default:
+      return <div>Error</div>
   }
+}
+
+export const Buyflow: React.FC<BuyflowProps> = ({ productId, onSubmit }) => {
+  const [currentStepIndex, setCurrenStepIndex] = useState(0)
+  const [collectedData, updateData] = useState<BuyFlowData>({})
+
+  const steps = STEPS_BY_PRODUCT_ID[productId]
+
+  const handleNextStep = useCallback(
+    (updatedData: BuyFlowData) => {
+      updateData({ ...collectedData, ...updatedData })
+      setCurrenStepIndex(currentStepIndex + 1)
+    },
+    [collectedData, currentStepIndex]
+  )
+
   return (
     <>
-      <h4>Buying {PRODUCT_IDS_TO_NAMES[props.productId]}</h4>
-      {(currentStep === 'email' && <EmailStep cb={getStepCallback('age')} />) ||
-        (currentStep === 'age' && (
-          <AgeStep cb={getStepCallback('summary')} />
-        )) ||
-        (currentStep === 'summary' && (
-          <SummaryStep collectedData={collectedData} />
-        ))}
+      <h4>Buying {PRODUCT_IDS_TO_NAMES[productId]}</h4>
+      <CurrentBuyFlowStep
+        step={steps[currentStepIndex]}
+        data={collectedData}
+        onNext={handleNextStep}
+        onSubmit={onSubmit}
+      />
     </>
   )
 }
