@@ -13,6 +13,22 @@ export enum StepId {
   Summary = 'summary',
 }
 
-export type BuyFlowStep = {
-  stepId: StepId
+export type BuyFlowStep = BuyFlowAgeStep | BuyFlowEmailStep | BuyFlowSummaryStep
+
+interface BaseBuyFlowStep {
+  optional?: boolean
+}
+
+export interface BuyFlowAgeStep extends BaseBuyFlowStep {
+  stepId: StepId.Age
+  min?: number
+  max: number
+}
+
+export interface BuyFlowEmailStep extends BaseBuyFlowStep {
+  stepId: StepId.Email
+}
+
+export interface BuyFlowSummaryStep {
+  stepId: StepId.Summary
 }

@@ -1,27 +1,30 @@
 import React, { useState } from 'react'
-import { EmailData } from '../types'
+import { BuyFlowEmailStep, EmailData } from '../types'
+import { StepBase } from './StepBase'
 
-interface EmailStepProps {
+interface EmailStepProps extends Omit<BuyFlowEmailStep, 'stepId'> {
   value: EmailData['email']
   onNext(data: EmailData): void
 }
 
-export const EmailStep: React.FC<EmailStepProps> = ({ value, onNext }) => {
+export const EmailStep: React.FC<EmailStepProps> = ({
+  value,
+  onNext,
+  optional,
+}) => {
   const [email, setEmail] = useState(value)
 
   return (
-    <>
+    <StepBase onNext={() => onNext({ email })}>
       <div>
         Email:{' '}
         <input
           type="email"
-          onChange={({ target: { value } }) => {
-            setEmail(value)
-          }}
+          onChange={({ target: { value } }) => setEmail(value)}
           value={email || ''}
+          required={!optional}
         ></input>
       </div>
-      <button onClick={() => onNext({ email })}>Next</button>
-    </>
+    </StepBase>
   )
 }

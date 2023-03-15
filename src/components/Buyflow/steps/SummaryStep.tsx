@@ -1,5 +1,7 @@
 import React from 'react'
+import { camelCaseToPascalCase } from '../../../utils/string'
 import { BuyFlowData } from '../types'
+import { StepBase } from './StepBase'
 
 interface SummaryStepProps {
   data: BuyFlowData
@@ -8,13 +10,12 @@ interface SummaryStepProps {
 
 export const SummaryStep: React.FC<SummaryStepProps> = ({ data, onNext }) => {
   return (
-    <>
+    <StepBase onNext={() => onNext()} nextBtnText="Purchase">
       {Object.entries(data).map(([key, value]) => (
         <div key={key}>
-          {key}: {value ?? '-'}
+          {camelCaseToPascalCase(key)}: {value ?? 'Not provided'}
         </div>
       ))}
-      <button onClick={() => onNext()}>Purchase</button>
-    </>
+    </StepBase>
   )
 }

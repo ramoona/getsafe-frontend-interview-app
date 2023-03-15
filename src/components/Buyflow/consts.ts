@@ -8,7 +8,7 @@ export const PRODUCT_IDS_TO_NAMES = {
 export const STEPS_BY_PRODUCT_ID: Record<ProductId, BuyFlowStep[]> = {
   [ProductId.DeveloperInsurance]: [
     { stepId: StepId.Email },
-    { stepId: StepId.Age },
+    { stepId: StepId.Age, max: 90 },
     { stepId: StepId.Summary },
   ],
 }

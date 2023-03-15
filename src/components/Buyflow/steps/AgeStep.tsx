@@ -1,27 +1,34 @@
 import React, { useState } from 'react'
-import { AgeData } from '../types'
+import { AgeData, BuyFlowAgeStep } from '../types'
+import { StepBase } from './StepBase'
 
-interface AgeStepProps {
+interface AgeStepProps extends Omit<BuyFlowAgeStep, 'stepId'> {
   value: AgeData['age']
   onNext(data: AgeData): void
 }
 
-export const AgeStep: React.FC<AgeStepProps> = ({ value, onNext }) => {
+export const AgeStep: React.FC<AgeStepProps> = ({
+  value,
+  onNext,
+  optional,
+  min,
+  max,
+}) => {
   const [age, setAge] = useState(value)
 
   return (
-    <>
+    <StepBase onNext={() => onNext({ age })}>
       <div>
         Age:{' '}
         <input
           type="number"
-          onChange={({ target: { value } }) => {
-            setAge(Number(value))
-          }}
+          onChange={({ target: { value } }) => setAge(Number(value))}
           value={age || ''}
+          required={!optional}
+          min={min}
+          max={max}
         ></input>
       </div>
-      <button onClick={() => onNext({ age })}>Next</button>
-    </>
+    </StepBase>
   )
 }

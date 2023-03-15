@@ -23,15 +23,27 @@ const CurrentBuyFlowStep: React.FC<CurrentBuyFlowStepProps> = ({
   data,
   onSubmit,
 }) => {
-  const { age, email } = data
-
   const handleSubmit = useCallback(() => onSubmit(data), [data, onSubmit])
 
   switch (step.stepId) {
     case StepId.Age:
-      return <AgeStep value={age} onNext={onNext} />
+      return (
+        <AgeStep
+          value={data.age}
+          onNext={onNext}
+          optional={step.optional}
+          max={step.max}
+          min={step.min}
+        />
+      )
     case StepId.Email:
-      return <EmailStep value={email} onNext={onNext} />
+      return (
+        <EmailStep
+          value={data.email}
+          onNext={onNext}
+          optional={step.optional}
+        />
+      )
     case StepId.Summary:
       return <SummaryStep data={data} onNext={handleSubmit} />
     default:
