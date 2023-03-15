@@ -4,7 +4,7 @@ interface AgeStepProps {
   cb: (field: string, value: number) => void
 }
 
-const AgeStep: React.FC<AgeStepProps> = (props) => {
+export const AgeStep: React.FC<AgeStepProps> = (props) => {
   const [age, setAge] = useState(0)
   return (
     <>
@@ -22,5 +22,3 @@ const AgeStep: React.FC<AgeStepProps> = (props) => {
     </>
   )
 }
-
-export default AgeStep

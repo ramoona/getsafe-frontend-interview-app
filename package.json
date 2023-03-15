@@ -25,7 +25,7 @@
     "eject": "react-scripts eject",
     "prettier": "prettier --write .",
     "lint": "eslint ./ --ext ts,tsx,js --cache",
-    "tsc": "tsc"
+    "typecheck": "tsc"
   },
   "eslintConfig": {
     "extends": [

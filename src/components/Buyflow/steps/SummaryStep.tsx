@@ -8,7 +8,7 @@ interface SummaryStepProps {
   }
 }
 
-const SummaryStep: React.FC<SummaryStepProps> = (props) => {
+export const SummaryStep: React.FC<SummaryStepProps> = (props) => {
   return (
     <>
       <div>Email: {props.collectedData.email}</div>
@@ -19,5 +19,3 @@ const SummaryStep: React.FC<SummaryStepProps> = (props) => {
     </>
   )
 }
-
-export default SummaryStep

@@ -4,7 +4,7 @@ interface EmailStepProps {
   cb: (field: string, value: string) => void
 }
 
-const EmailStep: React.FC<EmailStepProps> = (props) => {
+export const EmailStep: React.FC<EmailStepProps> = (props) => {
   const [email, setEmail] = useState('')
   return (
     <>
@@ -22,5 +22,3 @@ const EmailStep: React.FC<EmailStepProps> = (props) => {
     </>
   )
 }
-
-export default EmailStep

@@ -1,21 +1,21 @@
 import React, { useState } from 'react'
-import AgeStep from './AgeStep'
-import EmailStep from './EmailStep'
-import SummaryStep from './SummaryStep'
+import { AgeStep } from './steps/AgeStep'
+import { EmailStep } from './steps/EmailStep'
+import { SummaryStep } from './steps/SummaryStep'
 
 interface BuyflowProps {
-  productId: ProductIds
+  productId: ProductId
 }
 
-export enum ProductIds {
-  devIns = 'dev_ins',
+export enum ProductId {
+  DeveloperInsurance = 'dev_ins',
 }
 
 const PRODUCT_IDS_TO_NAMES = {
-  [ProductIds.devIns]: 'Developer Insurance',
+  [ProductId.DeveloperInsurance]: 'Developer Insurance',
 }
 
-const Buyflow: React.FC<BuyflowProps> = (props) => {
+export const Buyflow: React.FC<BuyflowProps> = (props) => {
   const [currentStep, setStep] = useState('email')
   const [collectedData, updateData] = useState({
     email: '',
@@ -38,5 +38,3 @@ const Buyflow: React.FC<BuyflowProps> = (props) => {
     </>
   )
 }
-
-export default Buyflow
