@@ -17,8 +17,9 @@ export const FullNameStep: React.FC<FullNameStepProps> = ({
   return (
     <StepBase onNext={() => onNext(fullName)}>
       <div>
-        First Name:{' '}
+        <label htmlFor="firstName">First Name: </label>
         <input
+          id="firstName"
           onChange={({ target: { value } }) =>
             setFullName({ ...fullName, firstName: value })
           }
@@ -27,8 +28,9 @@ export const FullNameStep: React.FC<FullNameStepProps> = ({
         ></input>
       </div>
       <div>
-        Last Name:{' '}
+        <label htmlFor="lastName">Last Name: </label>
         <input
+          id="lastName"
           onChange={({ target: { value } }) =>
             setFullName({ ...fullName, lastName: value })
           }

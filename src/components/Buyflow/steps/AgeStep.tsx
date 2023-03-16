@@ -19,8 +19,9 @@ export const AgeStep: React.FC<AgeStepProps> = ({
   return (
     <StepBase onNext={() => onNext({ age })}>
       <div>
-        Age:{' '}
+        <label htmlFor="age">Age: </label>
         <input
+          id="age"
           type="number"
           onChange={({ target: { value } }) => setAge(Number(value))}
           value={age || ''}

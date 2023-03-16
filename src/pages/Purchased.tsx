@@ -8,16 +8,14 @@ import { NotFoundPage } from './NotFound'
 export const PurchasedPage = () => {
   const { productId } = useParams<{ productId: ProductId }>()
 
-  if (!productId || PRODUCT_IDS_TO_NAMES[productId]) {
+  if (!productId || !PRODUCT_IDS_TO_NAMES[productId]) {
     return <NotFoundPage />
   }
 
   return (
     <>
       <h1>🎉</h1>
-      <p>
-        You have successfully purchased a {PRODUCT_IDS_TO_NAMES[productId]}!
-      </p>
+      <p>You have successfully purchased {PRODUCT_IDS_TO_NAMES[productId]}!</p>
       <Link to={ROUTES.HOME}>To the Insurance List</Link>
     </>
   )

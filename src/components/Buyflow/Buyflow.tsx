@@ -75,6 +75,10 @@ export const Buyflow: React.FC<BuyflowProps> = ({ productId, onSubmit }) => {
     [collectedData, currentStepIndex]
   )
 
+  if (!steps) {
+    return <div>Error: flow for this product ID is not found</div>
+  }
+
   return (
     <CurrentBuyFlowStep
       step={steps[currentStepIndex]}

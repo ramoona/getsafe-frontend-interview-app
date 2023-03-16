@@ -5,7 +5,7 @@ import { ROUTES } from '../consts/routes'
 export const NotFoundPage = () => {
   return (
     <>
-      <h1>We couldn't find this page 😢</h1>
+      <h1>This page is not found 😢</h1>
       <Link to={ROUTES.HOME}>To the Insurance List</Link>
     </>
   )

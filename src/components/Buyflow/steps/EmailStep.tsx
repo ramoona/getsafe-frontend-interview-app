@@ -17,8 +17,9 @@ export const EmailStep: React.FC<EmailStepProps> = ({
   return (
     <StepBase onNext={() => onNext({ email })}>
       <div>
-        Email:{' '}
+        <label htmlFor="email">Email: </label>
         <input
+          id="email"
           type="email"
           onChange={({ target: { value } }) => setEmail(value)}
           value={email || ''}
