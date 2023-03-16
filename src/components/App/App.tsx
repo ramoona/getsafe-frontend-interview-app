@@ -6,6 +6,7 @@ import styles from './App.module.css'
 import { ROUTES } from '../../consts/routes'
 import { ProductId } from '../../types/product'
 import { PurchasedPage } from '../../pages/Purchased'
+import { NotFoundPage } from '../../pages/NotFound'
 
 export const App = () => {
   return (
@@ -28,6 +29,7 @@ export const App = () => {
             element={<PurchasedPage />}
           />
           <Route path={ROUTES.HOME} element={<HomePage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
     </Router>
