@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { HomePage } from '../../pages/Home'
 import { DeveloperInsurancePage } from '../../pages/DeveloperInsurance'
 import styles from './App.module.css'
+import { ROUTES } from '../../consts/routes'
 
 export const App = () => {
   return (
@@ -13,10 +14,14 @@ export const App = () => {
         </header>
         <Routes>
           <Route
-            path="/buy/insurance_dev"
+            path={ROUTES.BUY.DEVELOPER_INSURANCE}
             element={<DeveloperInsurancePage />}
           />
-          <Route path="/" element={<HomePage />} />
+          <Route
+            path={`${ROUTES.PURCHASED}/:productId`}
+            element={<div>Success page</div>}
+          />
+          <Route path={ROUTES.HOME} element={<HomePage />} />
         </Routes>
       </div>
     </Router>
