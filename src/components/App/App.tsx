@@ -1,9 +1,11 @@
 import logo from '../../assets/logo.svg'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { HomePage } from '../../pages/Home'
-import { DeveloperInsurancePage } from '../../pages/DeveloperInsurance'
+import { InsurancePage } from '../../pages/Insurance'
 import styles from './App.module.css'
 import { ROUTES } from '../../consts/routes'
+import { ProductId } from '../../types/product'
+import { PurchasedPage } from '../../pages/Purchased'
 
 export const App = () => {
   return (
@@ -15,11 +17,15 @@ export const App = () => {
         <Routes>
           <Route
             path={ROUTES.BUY.DEVELOPER_INSURANCE}
-            element={<DeveloperInsurancePage />}
+            element={<InsurancePage productId={ProductId.DeveloperInsurance} />}
+          />
+          <Route
+            path={ROUTES.BUY.DESIGNER_INSURANCE}
+            element={<InsurancePage productId={ProductId.DesignerInsurance} />}
           />
           <Route
             path={`${ROUTES.PURCHASED}/:productId`}
-            element={<div>Success page</div>}
+            element={<PurchasedPage />}
           />
           <Route path={ROUTES.HOME} element={<HomePage />} />
         </Routes>

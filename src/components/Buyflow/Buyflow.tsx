@@ -1,9 +1,11 @@
 import React, { useCallback, useState } from 'react'
-import { PRODUCT_IDS_TO_NAMES, STEPS_BY_PRODUCT_ID } from './consts'
+import { STEPS_BY_PRODUCT_ID } from './consts'
 import { AgeStep } from './steps/AgeStep'
 import { EmailStep } from './steps/EmailStep'
 import { SummaryStep } from './steps/SummaryStep'
-import { BuyFlowData, BuyFlowStep, ProductId, StepId } from './types'
+import { FullNameStep } from './steps/FullNameStep'
+import { BuyFlowData, BuyFlowStep, StepId } from './types'
+import { ProductId } from '../../types/product'
 
 interface BuyflowProps {
   productId: ProductId
@@ -44,10 +46,18 @@ const CurrentBuyFlowStep: React.FC<CurrentBuyFlowStepProps> = ({
           optional={step.optional}
         />
       )
+    case StepId.FullName:
+      return (
+        <FullNameStep
+          value={{ firstName: data.firstName, lastName: data.lastName }}
+          onNext={onNext}
+          optional={step.optional}
+        />
+      )
     case StepId.Summary:
       return <SummaryStep data={data} onNext={handleSubmit} />
     default:
-      return <div>Error</div>
+      return <div>Error: flow step is not found</div>
   }
 }
 
@@ -66,14 +76,11 @@ export const Buyflow: React.FC<BuyflowProps> = ({ productId, onSubmit }) => {
   )
 
   return (
-    <>
-      <h4>Buying {PRODUCT_IDS_TO_NAMES[productId]}</h4>
-      <CurrentBuyFlowStep
-        step={steps[currentStepIndex]}
-        data={collectedData}
-        onNext={handleNextStep}
-        onSubmit={onSubmit}
-      />
-    </>
+    <CurrentBuyFlowStep
+      step={steps[currentStepIndex]}
+      data={collectedData}
+      onNext={handleNextStep}
+      onSubmit={onSubmit}
+    />
   )
 }
