@@ -1,0 +1,21 @@
+.form {
+    margin: 0 auto;
+    padding-top: 20px;
+    width: 100%;
+    max-width: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.button {
+    height: 34px;
+    padding: 0 16px;
+    cursor: pointer;
+}
+
+.buttonsContainer {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}

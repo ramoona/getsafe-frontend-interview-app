@@ -15,7 +15,10 @@ export const PurchasedPage = () => {
   return (
     <>
       <h1>🎉</h1>
-      <p>You have successfully purchased {PRODUCT_IDS_TO_NAMES[productId]}!</p>
+      <p>
+        You have successfully purchased <b>{PRODUCT_IDS_TO_NAMES[productId]}</b>
+        !
+      </p>
       <Link to={ROUTES.HOME}>To the Insurance List</Link>
     </>
   )

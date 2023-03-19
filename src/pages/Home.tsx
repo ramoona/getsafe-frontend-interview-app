@@ -13,6 +13,7 @@ export const HomePage = () => {
           {PRODUCT_IDS_TO_NAMES[ProductId.DeveloperInsurance]}
         </Link>
       </div>
+      <br />
       <div>
         <Link to={ROUTES.BUY.DESIGNER_INSURANCE}>
           {PRODUCT_IDS_TO_NAMES[ProductId.DesignerInsurance]}

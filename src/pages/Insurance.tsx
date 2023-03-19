@@ -18,7 +18,7 @@ export const InsurancePage: React.FC<InsurancePageProps> = ({ productId }) => {
 
   return (
     <>
-      <h4>Buying {PRODUCT_IDS_TO_NAMES[productId]}</h4>
+      <h2>Buying {PRODUCT_IDS_TO_NAMES[productId]}</h2>
       <Buyflow productId={productId} onSubmit={handleFlowSubmit} />
     </>
   )

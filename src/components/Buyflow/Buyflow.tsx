@@ -16,12 +16,14 @@ interface CurrentBuyFlowStepProps {
   step: BuyFlowStep
   data: BuyFlowData
   onNext(data: BuyFlowData): void
+  onPrev?: () => void
   onSubmit(data: BuyFlowData): void
 }
 
 const CurrentBuyFlowStep: React.FC<CurrentBuyFlowStepProps> = ({
   step,
   onNext,
+  onPrev,
   data,
   onSubmit,
 }) => {
@@ -33,6 +35,7 @@ const CurrentBuyFlowStep: React.FC<CurrentBuyFlowStepProps> = ({
         <AgeStep
           value={data.age}
           onNext={onNext}
+          onPrev={onPrev}
           optional={step.optional}
           max={step.max}
           min={step.min}
@@ -43,6 +46,7 @@ const CurrentBuyFlowStep: React.FC<CurrentBuyFlowStepProps> = ({
         <EmailStep
           value={data.email}
           onNext={onNext}
+          onPrev={onPrev}
           optional={step.optional}
         />
       )
@@ -51,11 +55,12 @@ const CurrentBuyFlowStep: React.FC<CurrentBuyFlowStepProps> = ({
         <FullNameStep
           value={{ firstName: data.firstName, lastName: data.lastName }}
           onNext={onNext}
+          onPrev={onPrev}
           optional={step.optional}
         />
       )
     case StepId.Summary:
-      return <SummaryStep data={data} onNext={handleSubmit} />
+      return <SummaryStep data={data} onNext={handleSubmit} onPrev={onPrev} />
     default:
       return <div>Error: flow step is not found</div>
   }
@@ -69,11 +74,15 @@ export const Buyflow: React.FC<BuyflowProps> = ({ productId, onSubmit }) => {
 
   const handleNextStep = useCallback(
     (updatedData: BuyFlowData) => {
-      updateData({ ...collectedData, ...updatedData })
-      setCurrenStepIndex(currentStepIndex + 1)
+      updateData((data) => ({ ...data, ...updatedData }))
+      setCurrenStepIndex(Math.min(currentStepIndex + 1, steps.length - 1))
     },
-    [collectedData, currentStepIndex]
+    [currentStepIndex, steps]
   )
+
+  const handlePrevStep = useCallback(() => {
+    setCurrenStepIndex(Math.max(0, currentStepIndex - 1))
+  }, [currentStepIndex])
 
   if (!steps) {
     return <div>Error: flow for this product ID is not found</div>
@@ -84,6 +93,7 @@ export const Buyflow: React.FC<BuyflowProps> = ({ productId, onSubmit }) => {
       step={steps[currentStepIndex]}
       data={collectedData}
       onNext={handleNextStep}
+      onPrev={currentStepIndex ? handlePrevStep : undefined}
       onSubmit={onSubmit}
     />
   )

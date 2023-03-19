@@ -1,5 +1,5 @@
 import logo from '../../assets/logo.svg'
-import { Route, Routes } from 'react-router-dom'
+import { Link, Route, Routes } from 'react-router-dom'
 import { HomePage } from '../../pages/Home'
 import { InsurancePage } from '../../pages/Insurance'
 import styles from './App.module.css'
@@ -12,7 +12,9 @@ export const App = () => {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <img src={logo} className={styles.logo} alt="logo" />
+        <Link to={ROUTES.HOME}>
+          <img src={logo} className={styles.logo} alt="logo" />
+        </Link>
       </header>
       <Routes>
         <Route
